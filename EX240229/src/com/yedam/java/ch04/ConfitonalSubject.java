@@ -45,9 +45,7 @@ public class ConfitonalSubject {
 		   단, 출력문에 변수를 사용하지 않는다.
 		 */
 		int num;
-
-		
-		int score;
+	
 	}
 
 }
