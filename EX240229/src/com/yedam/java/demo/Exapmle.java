@@ -8,7 +8,6 @@ public class Exapmle {
 	/** javadoc 주석 -> 문서화 가능 */
 	public static void main(String[] args) {
 		System.out.println("Hello, world!");
-		
 	}
 
 }
