@@ -21,6 +21,8 @@ public class InOutExample {
 		
 		Scanner sc = new Scanner(System.in);
 		
+		
+		
 		System.out.print("입력> ");
 		String strVal = sc.nextLine();
 		System.out.println("실제 출력 : "+ strVal);

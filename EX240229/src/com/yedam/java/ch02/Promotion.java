@@ -9,6 +9,8 @@ public class Promotion {
 		int intVal = byteVal;
 		System.out.println(intVal);
 		
+		
+		
 		// 자동타입변환 -실수
 		float floatVal = 1.25F;
 		double doubleVal = floatVal;

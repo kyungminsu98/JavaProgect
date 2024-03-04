@@ -13,6 +13,8 @@ public class VariableExmpla {
 		System.out.println(var3);
 		System.out.println(var4);
 		
+		
+		
 		// char
 		char c1 = 'A';
 		char c2 = (char)(c1*2);
