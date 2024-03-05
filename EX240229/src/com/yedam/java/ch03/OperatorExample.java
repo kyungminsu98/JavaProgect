@@ -1,4 +1,4 @@
-package com.yedan.java.ch03;
+package com.yedam.java.ch03;
 
 import java.util.Scanner;
 
