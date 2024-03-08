@@ -47,11 +47,31 @@ public class BankExample {
 				System.out.println("출금할 금액 >");
 				int money = sc.nextInt(); // 해당 인덱스의 값에 더해야하는 값
 				accountList[account] = accountList[account] - money;
+				if(accountList[account] < money) {
+					System.out.println("요청한 출금 금액이 계좌 잔액보다 큽니다");
+				}
 				System.out.printf("현재 잔액은 %d원입니다.\n",accountList[account]);
 			}else if(menu == 4) {// 계좌이체
-				System.out.println("이체할 계좌번호 >");
-				int account = sc.nextInt(); 
-				System.out.println("이체할 금액 >");
+				System.out.print("출금할 계좌번호 > ");
+				int account = sc.nextInt(); // accountList의 인덱스
+				System.out.printf("현재 잔액은 %d원입니다.\n", accountList[account]);
+				
+				System.out.print("출금할 금액 > ");
+				int money = sc.nextInt();   // 해당 인덱스의 값에 빼야하는 값
+				if( accountList[account] < money ){
+					System.out.println("요청한 출금 금액이 계좌잔액보다 큽니다.");
+					continue;
+				}
+				accountList[account] = accountList[account] - money;
+			
+				System.out.print("입금할 계좌번호 > ");
+				account = sc.nextInt(); // accountList의 인덱스
+				if( account >= currentMax ){
+					System.out.println("없는 계좌번호 입니다.");
+					//continue;
+				}else{
+					accountList[account] = accountList[account] + money;
+				}
 				System.out.printf("현재 잔액은 %d원입니다.\n",accountList[account]);
 			}else if(menu == 5) {// 잔액조회
 				System.out.println("조회할 계좌번호 >");
