@@ -16,7 +16,7 @@ public class MainExample {
 		System.out.println(myCar.speed);
 		System.out.println(myCar.record);
 		
-		Car yourCar = new Car();
+		Car yourCar = new Car("아벤떼");
 		
 		System.out.println(yourCar.company);
 		System.out.println(yourCar.model);
@@ -28,7 +28,7 @@ public class MainExample {
 		// 필드가 배열일 경우
 		yourCar.record = new String[5];
 		yourCar.record[0] = "출고일자 : 2024-03-27";
-		for(int i=0; yourCar.record.length - 1;i++) {
+		for(int i=0; i<yourCar.record.length-1;i++) {
 			System.out.println(yourCar.record[i]);
 		}
 		int[][] intList = { { 1,2,3}, {5,6,7} };

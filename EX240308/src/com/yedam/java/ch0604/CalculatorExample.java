@@ -1,4 +1,4 @@
-package com.yedam.java.ch0603;
+package com.yedam.java.ch0604;
 
 import java.util.Scanner;
 
@@ -8,12 +8,16 @@ public class CalculatorExample {
 		Calculator cal = new Calculator();
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("더하고자 하는 값 : x y >");
+		System.out.print("더하고자 하는 값 : x y >");
 		double x = sc.nextDouble();
 		double y = sc.nextDouble();
 		
+		// int plus(int x, int y)
 		int result = cal.plus(x, y);
-		System.out.println("결과값 >" + result);
+		System.out.println("결과값 > " + result);
+		
+		
+		sc.close();
 
 	}
 
