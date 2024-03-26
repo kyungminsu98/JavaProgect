@@ -5,8 +5,9 @@ public class Member {
 	private String memberPassword;
 	// memberRole : 0 - 관리자, 1 - 일반 
 	private int memberRole;
-	
-	
+//	private String admin_id;
+//	private String admin_password;
+//	private int admin_role;
 	
 	
 	
