@@ -104,7 +104,7 @@ public class AdminLogin {
     // ISBN 생성 메서드
     private String generateISBN() {
         // 시퀀스를 사용하여 ISBN 생성
-        String query = "SELECT '978' || LPAD(book_seq.NEXTVAL, 10, '0') AS new_isbn FROM dual";
+        String query = "SELECT '978' || LPAD(book_seq.NEXTVAL, 10, '1') AS new_isbn FROM dual";
         // 여기서 '978'은 일반적인 ISBN 접두어입니다.
         // LPAD 함수는 시퀀스 값을 왼쪽으로 0으로 채워서 총 10자리로 만듭니다.
 

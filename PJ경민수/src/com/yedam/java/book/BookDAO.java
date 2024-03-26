@@ -94,14 +94,13 @@ public class BookDAO extends DAO{
 		connect();
 		// SQL 작성
 		String sql = "INSERT INTO book(isbn, title, author, content, stock)"
-				   + "VALUES(?,?,?,?,?)";
+				   + "VALUES(book_seq.NEXTVAL,?,?,?,?)";
 		// 객체생성
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, book.getIsbn());
-		pstmt.setString(2, book.getTitle());
-		pstmt.setString(3, book.getAuthor());
-		pstmt.setString(4, book.getContent());
-		pstmt.setInt(5, book.getStock());
+		pstmt.setString(1, book.getTitle());
+		pstmt.setString(2, book.getAuthor());
+		pstmt.setString(3, book.getContent());
+		pstmt.setInt(4, book.getStock());
 		// SQL 실행
 		result = pstmt.executeUpdate();
 		// 결과처리
