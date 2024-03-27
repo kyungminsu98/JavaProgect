@@ -19,7 +19,7 @@ public class DAO {
 	protected Statement stmt = null;
 	protected ResultSet rs = null;
 	
-	protected void connect() {
+	protected Connection connect() {
 		try {
 		// 1. JDBC Driver 로딩하기
 		Class.forName(jdbcDriver);
@@ -31,6 +31,7 @@ public class DAO {
 			System.out.println("DB Connect Fail");
 			System.out.println(e.getMessage());
 		}
+		return conn;
 	}
 	//2) DB와 해제
 	protected void disconnect() {

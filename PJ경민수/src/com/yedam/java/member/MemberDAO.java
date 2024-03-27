@@ -24,7 +24,6 @@ public class MemberDAO extends DAO {
 					   + "WHERE member_id = '" + member.getMemberId() +"'"; 
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
-			
 			if(rs.next()) {
 				//아이디 존재
 				if(rs.getString("member_password").equals(member.getMemberPassword())){
@@ -40,7 +39,6 @@ public class MemberDAO extends DAO {
 			}else {
 				System.out.println("아이디가 존재하지 않습니다.");
 			}
-			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {

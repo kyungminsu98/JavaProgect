@@ -21,7 +21,6 @@ public class AdminLogin {
             adminmenuPrint();
             // 메뉴 선택
             int menu = selectMenu();
-            
             if(menu == 1) { //전체 도서 조회
             	bookApp.selectBookAll();
             }else if (menu == 2) {//단건 도서 조회
@@ -29,12 +28,14 @@ public class AdminLogin {
             }else if (menu == 3) {//도서 등록
             	addBook();
             }else if (menu == 4) {//도서 수정
-
+            	updateBook();
             }else if (menu == 5) {//도서 삭제
-
+            	deleteBookIsbn();
             }else if (menu == 6) {//도서 대여 내역
 
-            }else if (menu == 9) {//문의 확인
+            }else if (menu == 7) {//문의확인
+
+            }else if (menu == 8) {//로그아웃
                 logout();
                 break;
             } else {
@@ -53,11 +54,12 @@ public class AdminLogin {
         menu += "3.도서등록 ";
         menu += "4.도서수정 ";
         menu += "5.도서삭제 ";
-        menu += "6.도서 대여 내역";
-        menu += "9.문의확인";
-        System.out.println("===");
+        menu += "6.도서 대여 내역 ";
+        menu += "7.문의확인 ";
+        menu += "8.로그아웃 ";
+        System.out.println("=================================");
         System.out.println(menu);
-        System.out.println("===");
+        System.out.println("====================================");
     }
     private int selectMenu() {
         System.out.print("선택 > ");
@@ -78,9 +80,8 @@ public class AdminLogin {
     }
     private void addBook() {
         System.out.println("도서 정보를 입력하세요.");
-        // ISBN 생성 (시퀀스 사용)
+        // 시퀀스
         String isbn = generateISBN();
-        // 사용자로부터 입력 받은 도서 정보
         System.out.print("도서 제목: ");
         String title = sc.nextLine();
         System.out.print("저자: ");
@@ -90,7 +91,6 @@ public class AdminLogin {
         System.out.print("재고: ");
         int stock = Integer.parseInt(sc.nextLine());
 
-        // 입력 받은 도서 정보로 Book 객체 생성
         Book newBook = new Book(isbn, title, author, content, stock);
 
         // BookDAO를 사용하여 도서 등록
@@ -101,7 +101,6 @@ public class AdminLogin {
             System.out.println("도서 등록에 실패하였습니다.");
         }
     }
-    // ISBN 생성 메서드
     private String generateISBN() {
         // 시퀀스를 사용하여 ISBN 생성
         String query = "SELECT '978' || LPAD(book_seq.NEXTVAL, 10, '1') AS new_isbn FROM dual";
@@ -113,5 +112,67 @@ public class AdminLogin {
         String generatedIsbn = "9780000000000"; // 실제로는 데이터베이스에서 가져온 값을 사용해야 합니다.
 
         return generatedIsbn;
+    }
+    public void deleteBookIsbn() {
+        System.out.println("도서 정보를 삭제합니다.");
+        System.out.print("삭제할 도서의 ISBN을 입력하세요: ");
+        String isbn = sc.nextLine();
+
+        BookDAO bookDAO = BookDAO.getInstance();
+        int result = bookDAO.deleteBookInfo(isbn);
+        if (result > 0) {
+            System.out.println("도서가 성공적으로 삭제되었습니다.");
+        } else {
+            System.out.println("도서 삭제에 실패하였습니다.");
+        }
+    }
+    public void updateBook() {
+    	System.out.println("도서 정보를 수정합니다.");
+        System.out.print("수정할 도서의 ISBN을 입력하세요: ");
+        String isbn = sc.nextLine();
+        
+        BookDAO bookDAO = BookDAO.getInstance();
+        Book book = bookDAO.selectBookInfo(isbn, "", ""); 
+        if (book == null) {
+            System.out.println("해당 도서를 찾을 수 없습니다.");
+            return;
+        }
+        System.out.println("현재 도서 정보:");
+        System.out.println(book);
+        System.out.println("수정할 내용을 입력하세요.");
+        System.out.print("도서 제목: ");
+        String title = sc.nextLine();
+        if (!title.isEmpty()) {
+            book.setTitle(title);
+        }
+        System.out.print("저자: ");
+        String author = sc.nextLine();
+        if (!author.isEmpty()) {
+            book.setAuthor(author);
+        }
+        System.out.print("내용: ");
+        String content = sc.nextLine();
+        if (!content.isEmpty()) {
+            book.setContent(content);
+        }
+        System.out.print("재고: ");
+        String stockStr = sc.nextLine();
+        if (!stockStr.isEmpty()) {
+            try {
+                int stock = Integer.parseInt(stockStr);
+                book.setStock(stock);
+            } catch (NumberFormatException e) {
+                System.out.println("잘못된 입력입니다. 숫자를 입력하세요.");
+                return;
+            }
+        }
+        int result = bookDAO.updateBookInfo(book);
+        if (result > 0) {
+            System.out.println("도서 정보가 수정되었습니다.");
+            System.out.println("변경된 도서 정보:");
+            System.out.println(bookDAO.selectBookInfo(isbn, "", ""));
+        } else {
+            System.out.println("도서 정보 수정에 실패하였습니다.");
+        }
     }
 }

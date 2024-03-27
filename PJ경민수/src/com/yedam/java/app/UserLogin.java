@@ -29,9 +29,9 @@ public class UserLogin {
 			}else if (menu == 2) {
                 bookApp.selectBookOne();
 			}else if (menu == 3) {
-				
+				// 도서대출
 			}else if (menu == 4) {
-				
+				// 도서반납
 			}else if (menu == 5) {
 				
 			}else if(menu == 9){

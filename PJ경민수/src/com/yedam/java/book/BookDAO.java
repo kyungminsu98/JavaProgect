@@ -134,10 +134,11 @@ public class BookDAO extends DAO{
 		           + "WHERE isbn = ?";
 		// 객체생성
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(2, book.getTitle());
-		pstmt.setString(3, book.getAuthor());
-		pstmt.setString(4, book.getContent());
-		pstmt.setInt(5, book.getStock());
+		pstmt.setString(1, book.getTitle());
+		pstmt.setString(2, book.getAuthor());
+		pstmt.setString(3, book.getContent());
+		pstmt.setInt(4, book.getStock());
+		pstmt.setString(5, book.getIsbn());
 		// SQL 실행
 		result = pstmt.executeUpdate();
 		// 결과처리
@@ -149,13 +150,13 @@ public class BookDAO extends DAO{
 		return result;
 	}
 	// 5) 삭제
-	public int deleteBookInfo(int isbn) {
+	public int deleteBookInfo(String isbn) {
 	    int result = 0;
 	    try {
 	        connect();
 	        String sql = "DELETE FROM book WHERE isbn = ?";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, isbn);
+	        pstmt.setString(1, isbn);
 	        result = pstmt.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();

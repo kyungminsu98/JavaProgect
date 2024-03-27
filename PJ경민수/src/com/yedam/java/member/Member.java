@@ -2,15 +2,9 @@ package com.yedam.java.member;
 
 public class Member {
 	private String memberId;
-	private String memberPassword;
-	// memberRole : 0 - 관리자, 1 - 일반 
+	private String memberPassword; // memberRole : 0 - 관리자, 1 - 일반 
 	private int memberRole;
-//	private String admin_id;
-//	private String admin_password;
-//	private int admin_role;
-	
-	
-	
+
 	public String getMemberId() {
 		return memberId;
 	}
@@ -29,18 +23,9 @@ public class Member {
 	public void setMemberRole(int memberRole) {
 		this.memberRole = memberRole;
 	}
-	
 	@Override
 	public String toString() {
-		String info = "";
-		
-		if(memberRole == 0) {
-			info = "관리자 계정 : " + memberId;
-		}else {
-			info = "일반 계정 : " + memberId;
-		}
-		
-		return info;
+		return "Member [memberId=" + memberId + ", memberPassword=" + memberPassword + ", memberRole=" + memberRole
+				+ "]";
 	}
-	
 }
