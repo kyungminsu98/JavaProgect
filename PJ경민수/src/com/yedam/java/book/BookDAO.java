@@ -103,15 +103,6 @@ public class BookDAO extends DAO{
 		pstmt.setInt(4, book.getStock());
 		// SQL 실행
 		result = pstmt.executeUpdate();
-		// 결과처리
-//		if(rs.next()) {
-//			book = new Book();
-//			book.setIsbn(rs.getString("isbn"));
-//			book.setTitle(rs.getString("title"));
-//			book.setAuthor(rs.getString("author"));
-//			book.setContent(rs.getString("content"));
-//			book.setStock(rs.getInt("stock"));
-//		}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {

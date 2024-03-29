@@ -1,12 +1,10 @@
 package com.yedam.java.bookloan;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.yedam.java.book.Book;
 import com.yedam.java.common.DAO;
 
 public class BookloanDAO extends DAO{
@@ -40,13 +38,13 @@ public class BookloanDAO extends DAO{
 			//결과처리
 			while(rs.next()) {
 				// 한 행에 대한 처리
-	            Bookloan bookloan = new Bookloan();
-	            bookloan.setLoanId(rs.getInt("loan_id"));
-	            bookloan.setIsbn(rs.getString("isbn"));
-	            bookloan.setMemberId(rs.getString("member_id"));
-	            bookloan.setLoanDate(rs.getDate("loan_date"));
-	            bookloan.setReturnDate(rs.getDate("return_date"));
-	            list.add(bookloan);
+				Bookloan bookloan = new Bookloan();
+				bookloan.setLoanId(rs.getInt("loan_id"));
+				bookloan.setIsbn(rs.getString("isbn"));
+				bookloan.setMemberId(rs.getString("member_id"));
+				bookloan.setLoanDate(rs.getDate("loan_date"));
+				bookloan.setReturnDate(rs.getDate("return_date"));
+				list.add(bookloan);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -56,53 +54,87 @@ public class BookloanDAO extends DAO{
 		}
 		return list;
 	}
-	 public List<Bookloan> selectUserLoans(String memberId) {
-	        List<Bookloan> userLoans = new ArrayList<>();
-	        Connection conn = null;
-	        PreparedStatement pstmt = null;
-	        ResultSet rs = null;
-	        
-	        try {
-	            String sql = "SELECT * FROM loanbook WHERE member_id = ?";
-	            pstmt = conn.prepareStatement(sql);
-	            pstmt.setString(1, memberId);
-	            rs = pstmt.executeQuery();
-	            
-	            while (rs.next()) {
-	                Bookloan loan = new Bookloan();
-	                loan.setLoanId(rs.getInt("loan_id"));
-	                loan.setIsbn(rs.getString("isbn"));
-	                loan.setMemberId(rs.getString("member_id"));
-	                loan.setLoanDate(rs.getDate("loan_date"));
-	                loan.setReturnDate(rs.getDate("return_date"));
-	                userLoans.add(loan);
-	            }
-	        }catch (SQLException e) {
-	            e.printStackTrace();
-	        }finally {
-	            // 리소스 해제 코드
-	            if (rs != null) {
-	                try {
-	                    rs.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	            if (pstmt != null) {
-	                try {
-	                    pstmt.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	            if (conn != null) {
-	                try {
-	                    conn.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
+	public boolean isAvailableForBorrow(String isbn) {
+	    boolean available = false;
+	    try {
+	        connect();
+	        // 대출 가능 여부를 확인하는 SQL 작성
+	        String sql = "SELECT stock FROM book WHERE isbn = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, isbn);
+	        rs = pstmt.executeQuery();
+	        // 결과 처리
+	        if (rs.next()) {
+	            int stock = rs.getInt("stock");
+	            available = stock > 0;
 	        }
-	        return userLoans;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        disconnect();
 	    }
+	    return available;
+	}
+	public boolean borrowBook(String isbn) {
+	    boolean success = false;
+	    try {
+	        connect();
+	        // 도서 대출 처리 SQL 작성
+	        String sql = "UPDATE book SET stock = stock - 1 WHERE isbn = ? AND stock > 0";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, isbn);
+	        int rowCount = pstmt.executeUpdate();
+	        // 대출 성공 여부 확인
+	        success = rowCount > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        disconnect();
+	    }
+	    return success;
+	}
+	public boolean returnBook(String isbn) {
+	    int result = 0;
+	    try {
+	        connect();
+	        // 도서 반납 처리 SQL 작성
+	        String sql = "UPDATE book SET stock = stock + 1 WHERE isbn = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, isbn);
+	        result = pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        disconnect();
+	    }
+	    // 결과에 따라 반납 성공 여부 반환
+	    return result > 0;
+	}
+	public List<Book> selectBorrowedBooks() {
+	    List<Book> borrowedBooks = new ArrayList<>();
+	    try {
+	        connect();
+	        // 대출 중인 도서를 조회하는 SQL 작성
+	        String sql = "SELECT * FROM book WHERE stock < original_stock";
+	        stmt = conn.createStatement();
+	        rs = stmt.executeQuery(sql);
+	        // 결과 처리
+	        while (rs.next()) {
+	            Book book = new Book();
+	            book.setIsbn(rs.getString("isbn"));
+	            book.setTitle(rs.getString("title"));
+	            book.setAuthor(rs.getString("author"));
+	            book.setContent(rs.getString("content"));
+	            book.setStock(rs.getInt("stock"));
+	            borrowedBooks.add(book);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        disconnect();
+	    }
+	    return borrowedBooks;
+	}
+	
+
 }

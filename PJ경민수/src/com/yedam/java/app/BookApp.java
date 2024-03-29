@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.yedam.java.book.Book;
 import com.yedam.java.book.BookDAO;
+import com.yedam.java.bookloan.BookloanDAO;
 import com.yedam.java.member.Member;
 import com.yedam.java.member.MemberDAO;
 
@@ -28,10 +29,12 @@ public class BookApp {
 	//필드
 	private Scanner sc = null;
 	private BookDAO bookDAO = null;
+	private BookloanDAO bookloanDAO = null;
 	// 생성자
 	public BookApp() {
 		sc = new Scanner(System.in);
 		bookDAO = BookDAO.getInstance();
+		bookloanDAO = bookloanDAO.getInstance();
 	}
 	
 	public void run() {
@@ -189,6 +192,38 @@ public class BookApp {
 		info.setMemberPassword(sclogin.nextLine());
 		return info;
 	}
+	public void borrowBook() {
+	    System.out.println("대출할 도서의 ISBN을 입력하세요: ");
+	    String isbn = sc.nextLine();
+
+	    // 대출 가능한지 확인
+	    if (bookloanDAO.isAvailableForBorrow(isbn)) {
+	        // 대출 가능한 경우
+	        if (bookloanDAO.borrowBook(isbn)) {
+	            System.out.println("도서 대출이 완료되었습니다.");
+	        } else {
+	            System.out.println("도서 대출에 실패하였습니다.");
+	        }
+	    } else {
+	        // 대출 불가능한 경우
+	        System.out.println("대출이 불가능한 도서입니다.");
+	    }
+	}
+	public void returnBook() {
+	    System.out.println("반납할 도서의 ISBN을 입력하세요: ");
+	    String isbn = sc.nextLine();
+
+	    // 반납 처리
+	    if (bookloanDAO.returnBook(isbn)) {
+	        System.out.println("도서 반납이 완료되었습니다.");
+	    } else {
+	        System.out.println("도서 반납에 실패하였습니다.");
+	    }
+	    
+	}
+	
+	
+	
 }
 
 

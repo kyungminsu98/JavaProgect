@@ -1,20 +1,18 @@
 package com.yedam.java.app;
 
-import java.util.List;
 import java.util.Scanner;
-
-import com.yedam.java.app.BookApp;
-import com.yedam.java.book.Book;
 import com.yedam.java.book.BookDAO;
+import com.yedam.java.bookloan.BookloanDAO;
 public class UserLogin {
 	// 필드
 	private Scanner sc = null;
 	private BookDAO bookDAO = null;
-
+	private BookloanDAO bookloanDAO = null;
 	// 생성자
 	public UserLogin() {
 		sc = new Scanner(System.in);
 		bookDAO = BookDAO.getInstance();
+		bookloanDAO = bookloanDAO.getInstance();
 	}
 	BookApp bookApp = new BookApp();
 	public void run() {
@@ -29,11 +27,11 @@ public class UserLogin {
 			}else if (menu == 2) {
                 bookApp.selectBookOne();
 			}else if (menu == 3) {
-				// 도서대출
+				bookApp.borrowBook();
 			}else if (menu == 4) {
-				// 도서반납
+				bookApp.returnBook();
 			}else if (menu == 5) {
-				
+				bookloanDAO.selectBorrowedBooks();
 			}else if(menu == 9){
 				logout();
 				break;
