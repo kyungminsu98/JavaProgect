@@ -26,4 +26,9 @@
         content = #{content}
    	 WHERE board_number = #{board_no}
 	</update>
+	<select id="getBoard" parameterType="int" resultType="co.yedam.vo.BoardVO">
+	 select *
+   	 from tbl_board
+   	 where board_no = #{bno}
+	</select>
 </mapper>
