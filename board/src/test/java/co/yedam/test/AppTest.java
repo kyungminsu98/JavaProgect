@@ -1,31 +1,21 @@
 package co.yedam.test;
 
-import java.util.List;
-
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-
-import co.yedam.common.DataSource;
-import co.yedam.mapper.BoardMapper;
-import co.yedam.vo.BoardVO;
+import co.yedam.common.SearchVO;
+import co.yedam.service.BoardService;
+import co.yedam.service.BoardServiceImpl;
 
 public class AppTest {
+
 	public static void main(String[] args) {
-		SqlSessionFactory factory =DataSource.getInstance();
-		SqlSession session = factory.openSession();
+		SearchVO search =new SearchVO();
+		search.setPage(1);
+		search.setSearchCondition("W");
+		search.setKeyword("user01");
 		
-		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		String result = mapper.getTimes();
 		
-//		String result = session.selectOne("co.yedam.mapper.BoardMapper.getTimes");
-		System.out.println(result);
-		
-		List<BoardVO> list = //
-//		session.selectList("co.yedam.mapper.BoardMapper.selectList");
-				mapper.selectList();
-		
-		list.forEach(board ->{
-			System.out.println(board.toString());
-		});
+		BoardService svc = new BoardServiceImpl();
+		svc.boardList(search).forEach(board -> System.out.println(board.toString()));
+
 	}
+
 }

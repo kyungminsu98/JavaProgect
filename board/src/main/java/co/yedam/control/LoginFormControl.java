@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.common.Control;
 
-public class RemoveBoardForm implements Control {
+public class LoginFormControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("WEB-INF/view/boardForm.jsp").forward(req, resp);
+		req.getRequestDispatcher("WEB-INF/view/loginForm.jsp").forward(req, resp);
+
 	}
 
 }

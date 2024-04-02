@@ -36,15 +36,15 @@ public class FirstServlet extends HttpServlet {
     	resp.setContentType("text/html;charset=utf-8"); //text/plain => text형식 출력
     	SqlSession session = DataSource.getInstance().openSession();
     	BoardMapper mapper =session.getMapper(BoardMapper.class);
-    	List<BoardVO> list =mapper.selectList();
+//    	List<BoardVO> list =mapper.selectList();
     	PrintWriter out = resp.getWriter(); 
     	String html = "<table border ='1'>";
     	html += "<thead><tr><th>글번호</th><th>제목</th><th>작성자</th><th>작성일자</th></tr></thead>";
     	html += "<tbody>";
     	// 반복생성.
-    	for(BoardVO board : list) {
-    		html +="<tr><td>" + board.getBoardNo() + "</td>";
-    	}
+//    	for(BoardVO board : list) {
+//    		html +="<tr><td>" + board.getBoardNo() + "</td>";
+//    	}
     	html += "</tbody>";
     	html += "</table>";
     	

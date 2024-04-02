@@ -1,7 +1,9 @@
+<%@page import="co.yedam.vo.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="WEB-INF/includes/menu.jsp" %>
-<%@ include file="WEB-INF/includes/header.jsp" %>
+<%@ include file="../includes/menu.jsp" %>
+<%@ include file="../includes/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <title>게시글 단건 조회</title>
 
 <body>
@@ -9,7 +11,10 @@
 		BoardVO vo = (BoardVO)request.getAttribute("bvo");
 	%>
 		<from action="modifyBoard.do">
-			<input type="hidden"name="boardNo"value="<%=vo.getBoardNo()%>">
+			<input type="hidden" name="bno" value="${bvo.boardNo}">
+			<input type="hidden" name="page" value="${page}">
+			<input type="hidden" name="searchCondition" value="${searchCondition}">
+			<input type="hidden" name="keyword" value="${keyword}">
 		<table class="table">
 		<thead>
 			<tr>
@@ -37,4 +42,4 @@
 		</thead>
 	</table>
 	</form>
-	<%@ include file="WEB-INF/includes/footer.jsp" %>
+	<%@ include file="../includes/footer.jsp" %>

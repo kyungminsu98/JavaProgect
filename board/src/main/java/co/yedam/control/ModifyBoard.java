@@ -20,15 +20,22 @@ public class ModifyBoard implements Control {
         int boardNo = Integer.parseInt(boardNoStr); // 문자열을 int로 변환
         String title = req.getParameter("title");
         String content = req.getParameter("content");
-
+		String page =req.getParameter("page");
+		String sc = req.getParameter("searchCondition");
+		String kw = req.getParameter("keyword");
+		
         BoardVO vo = new BoardVO(); 
         vo.setBoardNo(boardNo);
         vo.setContent(content);
         vo.setTitle(title);
         
+		req.setAttribute("page", page);
+		req.setAttribute("searchCondition", sc);
+		req.setAttribute("keyword", kw);
+		
         BoardService svc = new BoardServiceImpl();
         if(svc.modifyBoard(vo)) { // 수정 메서드로 변경
-            resp.sendRedirect("boardList.do");
+            resp.sendRedirect("boardList.do?page=" + page + "&searchCondition=" + sc + "&keyword=" + kw);
         } else {
             req.setAttribute("msg", "수정 중 에러가 발생.");
             req.getRequestDispatcher("WEB-INF/view/error.jsp").forward(req, resp);

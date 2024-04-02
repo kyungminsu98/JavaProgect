@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/menu.jsp" %>
 <%@ include file="../includes/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <title>게시글 단건 조회</title>
 </head>
 <body>
@@ -11,7 +12,10 @@
 	%>
 	<h3>상세페이지</h3>
 	<form action="modifyForm.do">
-	<input type="hidden" name="bno" value="<%=vo.getBoardNo()%>">
+	<input type="hidden" name="bno" value="${bvo.boardNo}">
+	<input type="hidden" name="page" value="${page}">
+	<input type="hidden" name="searchCondition" value="${searchCondition}">
+	<input type="hidden" name="keyword" value="${keyword}">
 	<table class="table">
 		<thead>
 			<tr>

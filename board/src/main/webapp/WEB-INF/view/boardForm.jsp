@@ -14,7 +14,7 @@
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea name="content" ></textarea></td>
+			<td><textarea  class="form-control" name="content" ></textarea></td>
 		</tr>
 		<tr>
 			<th>작성자</th>
