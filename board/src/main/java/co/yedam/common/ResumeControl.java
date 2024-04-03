@@ -13,6 +13,7 @@ public class ResumeControl implements Control {
 		// resume.html
 		// resume.do -> 페이지 재지정.
 		req.getRequestDispatcher("WEB-INF/info/resume.html").forward(req, resp);
+		
 	}
 
 }

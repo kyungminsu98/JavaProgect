@@ -1,19 +1,20 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../includes/menu.jsp" %>
-<%@ include file="../includes/header.jsp" %>
-<% String bno = (String)request.getAttribute("bno"); %>
+
 <form action="removeBoard.do">
-	<table class="table">
-		<tr>
-			<th>삭제글 번호</th>
-			<td><input type="text" class="from-control" name="bno" value=""<%=bno%>></td>
-		</tr>
-		<tr>
-			<th>삭제글 번호</th>
-			<td><input type="text" class="from-control" name="bno" value=""<%=bno%>></td>
-		</tr> 
-	</table>
-	
+	<input type="hidden" name="searchCondition" value="${searchCondition}">
+	<input type="hidden" name="keyword" value="${keyword}">
+	<input type="hidden" name="page" value="${page}">
+  <table class="table">
+	<tr>
+	  <th>삭제글 번호</th>
+	  <td><input class="form-control" type="text" name="bno" value="${bno}" readonly></td>
+	</tr>
+	<tr>
+      <td colspan="2" align="center">
+      	<input class="btn btn-danger" type="submit" value="삭제">
+      </td>
+	</tr>
+  </table>
 </form>
-<%@ include file="../includes/footer.jsp" %>

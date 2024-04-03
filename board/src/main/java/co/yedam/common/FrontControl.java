@@ -1,6 +1,7 @@
 package co.yedam.common;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,43 +17,42 @@ import co.yedam.control.BoardControl;
 import co.yedam.control.BoardListControl;
 import co.yedam.control.LoginControl;
 import co.yedam.control.LoginFormControl;
+import co.yedam.control.LogoutControl;
 import co.yedam.control.ModifyBoard;
 import co.yedam.control.ModifyBoardForm;
 import co.yedam.control.RemoveBoard;
 import co.yedam.control.RemoveBoardForm;
 
-
 // init -> service -> destroy
-public class FrontControl extends HttpServlet{
+// .do로 끝나는 url패턴일때 실행되는 FrontControl
+public class FrontControl extends HttpServlet {
 	
-	// url pattern => 실행서블릿 관리
+	//url pattern - 실행서블릿. 관리.
 	Map<String, Control> map;
 	public FrontControl() {
 		map = new HashMap<>();
 	}
-	
+
 	@Override
-	public void init(ServletConfig config)  throws ServletException {
+	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainControl());
-		map.put("/second.do", new MainControl());
+		map.put("/second.do", null);
 		map.put("/resume.do", new ResumeControl());
-		// 게시글목록
 		map.put("/boardList.do", new BoardListControl());
-		map.put("/getboard.do", new BoardControl());
-		map.put("/addForm.do", new AddBoardForm());
-		map.put("/addBoard.do", new AddBoard());
+		map.put("/getBoard.do", new BoardControl());
+		map.put("/addForm.do", new AddBoardForm()); // 등록 화면 호출
+		map.put("/addBoard.do", new AddBoard()); // 등록 기능
 		map.put("/modifyForm.do", new ModifyBoardForm());
 		map.put("/modifyBoard.do", new ModifyBoard());
-		map.put("/remove.do", new RemoveBoardForm());
+		map.put("/removeForm.do", new RemoveBoardForm());
 		map.put("/removeBoard.do", new RemoveBoard());
-		//member관련
+		
+		// member
 		map.put("/loginForm.do", new LoginFormControl());
 		map.put("/login.do", new LoginControl());
-		
+		map.put("/logout.do", new LogoutControl());
 	}
-	
-	
-	
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
@@ -62,14 +62,18 @@ public class FrontControl extends HttpServlet{
 		String uri = req.getRequestURI();
 		String context = req.getContextPath();
 		String path = uri.substring(context.length());
-		
-		System.out.println("uri : "+ uri + ", context :"+ context + ", path : "+ path);
+		String ip = req.getRemoteAddr();
+		System.out.println(new Date());
+		System.out.println("uri	: " + uri);
+		System.out.println("context : " + context);
+		System.out.println("path	: " + path);
+		System.out.println("ip	: " + ip);
 		Control control = map.get(path);
 		control.exec(req, resp);
 	}
-    @Override
-    public void destroy() {
-        System.out.println("서블릿 해제 작업 수행");
-        // 해제 작업 수행
-    }
+
+	@Override
+	public void destroy() {
+		
+	}
 }

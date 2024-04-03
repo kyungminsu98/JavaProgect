@@ -7,10 +7,9 @@ import co.yedam.vo.BoardVO;
 
 public interface BoardService {
 	List<BoardVO> boardList(SearchVO search);
-	int getCount();//전체건수.
-	BoardVO getBoard(int bno); 
+	int getCount(SearchVO search);
+	BoardVO getBoard(int bno);
 	boolean addBoard(BoardVO vo);
 	boolean modifyBoard(BoardVO vo);
 	boolean removeBoard(int bno);
-	
 }

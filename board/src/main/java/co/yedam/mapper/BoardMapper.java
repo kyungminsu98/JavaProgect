@@ -8,10 +8,9 @@ import co.yedam.vo.BoardVO;
 public interface BoardMapper {
 	public String getTimes();
 	public List<BoardVO> selectList(SearchVO search);
-	public int selectCount();
-	
+	public int selectCount(SearchVO search);
 	public int insertBoard(BoardVO bo);
 	public int deleteBoard(int bno);
+	public int updateBoard(BoardVO board);
 	public BoardVO getBoard(int bno);
-	public int updateBoard(BoardVO vo); //	public int updateBoard(BoardVO up);
 }

@@ -15,31 +15,25 @@ public class ModifyBoard implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//boardNo, title, content
-        String boardNoStr = req.getParameter("boardNo"); // 게시글 번호를 문자열로 가져옴
-        int boardNo = Integer.parseInt(boardNoStr); // 문자열을 int로 변환
-        String title = req.getParameter("title");
-        String content = req.getParameter("content");
-		String page =req.getParameter("page");
+		BoardService svc = new BoardServiceImpl();
+		
+		int bno = Integer.parseInt(req.getParameter("bno"));
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+		BoardVO vo = new BoardVO();
+		vo.setTitle(title);
+		vo.setContent(content);
+		vo.setBoardNo(bno);		
+		
 		String sc = req.getParameter("searchCondition");
 		String kw = req.getParameter("keyword");
+		String page = req.getParameter("page");
 		
-        BoardVO vo = new BoardVO(); 
-        vo.setBoardNo(boardNo);
-        vo.setContent(content);
-        vo.setTitle(title);
-        
-		req.setAttribute("page", page);
-		req.setAttribute("searchCondition", sc);
-		req.setAttribute("keyword", kw);
-		
-        BoardService svc = new BoardServiceImpl();
-        if(svc.modifyBoard(vo)) { // 수정 메서드로 변경
-            resp.sendRedirect("boardList.do?page=" + page + "&searchCondition=" + sc + "&keyword=" + kw);
-        } else {
-            req.setAttribute("msg", "수정 중 에러가 발생.");
-            req.getRequestDispatcher("WEB-INF/view/error.jsp").forward(req, resp);
-        }
-    }
+		if (svc.modifyBoard(vo)) {
+			resp.sendRedirect("boardList.do?page="+page+"&searchCondition="+sc+"&keyword="+kw);
+		} else {
+			req.setAttribute("msg", "수정중 에러가 발생");
+			req.getRequestDispatcher("board/error.tiles").forward(req, resp);
+		}
+	}
 }
-

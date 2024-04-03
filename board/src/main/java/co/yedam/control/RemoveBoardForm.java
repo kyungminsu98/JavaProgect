@@ -12,7 +12,19 @@ public class RemoveBoardForm implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("WEB-INF/view/boardForm.jsp").forward(req, resp);
+		String bno = req.getParameter("bno");
+		req.setAttribute("bno", bno);
+		
+		// 페이지 따라가기
+		String sc = req.getParameter("searchCondition");
+		String kw = req.getParameter("keyword");
+		String page = req.getParameter("page");
+		
+		req.setAttribute("searchCondition", sc);
+		req.setAttribute("keyword", kw);
+		req.setAttribute("page", page);
+		
+		
+		req.getRequestDispatcher("board/removeForm.tiles").forward(req, resp);
 	}
-
 }
