@@ -11,5 +11,8 @@
 	WHERE member_id = #{memberId}
 	AND	  member_pw = #{memberPw}
   </select>
+  <select id="">
+  	
+  </select>
 
 </mapper>

@@ -1,8 +1,8 @@
 package co.yedam.test;
 
-import co.yedam.common.SearchVO;
 import co.yedam.service.BoardService;
 import co.yedam.service.BoardServiceImpl;
+import co.yedam.vo.SearchVO;
 
 public class AppTest {
 

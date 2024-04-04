@@ -34,4 +34,19 @@
 	<definition name="WILDCARD:*/*" extends="boardapp">
 		<put-attribute name="body" value="/WEB-INF/view/{1}/{2}.jsp" />
 	</definition>
+	
+	<!-- 상품관련 header/body.footer product.homepage -->
+	<!-- productList.do => product/productList.tiles => /WEB-INF/view/prod/{1}.jsp -->
+	<definition name="productapp" template="/WEB-INF/layout/productTemp.jsp">
+    	<put-attribute name="title" value="Tiles Template homepage" />
+    <!-- 상품 목록 페이지 -->
+    	<put-attribute name="header" value="/WEB-INF/view/prod/productHeader.jsp" />
+    <!-- 상품 메뉴 -->
+   		<put-attribute name="menu" value="/WEB-INF/view/prod/productMenu.jsp" />
+    <!-- 상품 목록 본문 -->
+   		<put-attribute name="body" value="/WEB-INF/view/prod/productBody.jsp" />
+    <!-- 상품 목록 페이지의 footer -->
+    	<put-attribute name="footer" value="/WEB-INF/view/prod/productFooter.jsp" />
+	</definition>
+	
 </tiles-definitions>

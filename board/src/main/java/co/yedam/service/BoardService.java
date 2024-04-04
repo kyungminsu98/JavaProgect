@@ -2,8 +2,8 @@ package co.yedam.service;
 
 import java.util.List;
 
-import co.yedam.common.SearchVO;
 import co.yedam.vo.BoardVO;
+import co.yedam.vo.SearchVO;
 
 public interface BoardService {
 	List<BoardVO> boardList(SearchVO search);

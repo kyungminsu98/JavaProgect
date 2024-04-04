@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.common.Control;
-import co.yedam.common.SearchVO;
 import co.yedam.service.BoardService;
 import co.yedam.service.BoardServiceImpl;
 import co.yedam.vo.BoardVO;
+import co.yedam.vo.SearchVO;
 
 public class ModifyBoardForm implements Control {
 

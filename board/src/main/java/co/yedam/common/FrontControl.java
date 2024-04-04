@@ -15,11 +15,14 @@ import co.yedam.control.AddBoard;
 import co.yedam.control.AddBoardForm;
 import co.yedam.control.BoardControl;
 import co.yedam.control.BoardListControl;
+import co.yedam.control.DomForm;
 import co.yedam.control.LoginControl;
 import co.yedam.control.LoginFormControl;
 import co.yedam.control.LogoutControl;
+import co.yedam.control.MemberDataControl;
 import co.yedam.control.ModifyBoard;
 import co.yedam.control.ModifyBoardForm;
+import co.yedam.control.ProductListControl;
 import co.yedam.control.RemoveBoard;
 import co.yedam.control.RemoveBoardForm;
 
@@ -51,6 +54,17 @@ public class FrontControl extends HttpServlet {
 		map.put("/loginForm.do", new LoginFormControl());
 		map.put("/login.do", new LoginControl());
 		map.put("/logout.do", new LogoutControl());
+		
+		// 회원가입
+//		map.put("/addmemberform.do", new AddMemberForm());
+//		map.put("/addmembe.do", new AddMemberControl());
+//		map.put("/memberList.do", MemberListControl());
+		
+		map.put("/domForm.do", new DomForm());
+		map.put("/memberData.do", new MemberDataControl());
+		
+		map.put("/productList.do", new ProductListControl());
+		
 	}
 
 	@Override

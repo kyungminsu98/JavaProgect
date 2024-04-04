@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import co.yedam.common.DataSource;
-import co.yedam.common.SearchVO;
 import co.yedam.mapper.BoardMapper;
 import co.yedam.vo.BoardVO;
+import co.yedam.vo.SearchVO;
 
 public class BoardServiceImpl implements BoardService{
 	SqlSession session = DataSource.getInstance().openSession(true);

@@ -34,7 +34,8 @@
                     <c:if test="${auth == 'Admin'}">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">회원목록(관리자)</a>
                     </c:if>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">회원가입</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">DOM 연습</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
