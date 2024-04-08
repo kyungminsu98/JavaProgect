@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.common.Control;
+import co.yedam.service.MemberService;
 import co.yedam.vo.MemberVO;
 
 public class MemberDataControl implements Control {
