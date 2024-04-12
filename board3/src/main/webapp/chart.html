@@ -1,0 +1,53 @@
+<html>
+  <head>
+  <meta charset = "UTF-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    	
+    	// 보여줄 항목 [id, centerName, address, phoneNumber]
+    	const fields = ['id', 'centerName', 'address', 'phoneNumber'];
+    
+		let url = 'https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&serviceKey=4EsC35jEGdkkWd5%2BbY1wIQcZwZdlrI9Flghr%2FPOum9E0H4n3vEjWDY6B9fnfC8bgemXbM1uRMixomXTs79D6Wg%3D%3D'
+		let xhtp = new XMLHttpRequest();
+		xhtp.open('get', url);
+		xhtp.send();
+		xhtp.onload = function(){
+			console.log(JSON.parse(xhtp.response));
+			let result = JSON.parse(xhtp.response);
+			result.data.forEach(center =>{
+				document.getElementById('list').append(makeRow(center));
+			})
+		}
+		document.addEventListener("DOMContentLoaded", function(e){
+			let show = document.getElementById('show');
+		})
+		// center 정보 한건에 대한 tr 생성해주는 함수
+		function makeRow(center){
+			let tr = document.createElement('tr');
+			fields.forEach(field =>{
+				let td = document.createElement('td');
+				let txt = center[field];
+				td.innerText = (txt+'').replace('코로나19','');
+				tr.appendChild(td);
+			})
+			return tr;
+		}
+		
+		
+    </script>
+  </head>
+  <body>
+  	센터명 : <input type="text" id="keyword">
+  	<button id="fintBtn">찾기</button>
+  	
+  	<div id="show">
+		<table class="table">
+			<thead>
+				<tr><th>센터ID</th><th>센터명</th><th>센터주소</th><th>연락처</th></tr>
+			</thead>
+			<tbody id ="list">
+			</tbody>
+		</table>
+    </div>
+  </body>
+</html>

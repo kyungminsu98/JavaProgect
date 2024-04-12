@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.yedam.mapper.BoardMapper">
+	<sql id="searchCond">
+		<where>
+			<choose>
+				<when test="searchCondition == 'T'.toString()">
+					title LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="searchCondition == 'W'.toString()">
+					writer LIKE '%'||#{keyword}||'%'
+				</when>
+				<when test="searchCondition == 'TW'.toString()">
+					(title LIKE '%'||#{keyword}||'%' OR writer LIKE
+					'%'||#{keyword}||'%')
+				</when>
+			</choose>
+		</where>
+	</sql>
+	<select id="getTimes" resultType="string">
+		SELECT sysdate FROM dual
+	</select>
+
+	<select id="selectList" resultType="co.yedam.vo.BoardVO"
+		parameterType="co.yedam.common.SearchVO">
+		SELECT *
+		FROM (
+			SELECT ROWNUM rn, b.*
+			FROM tbl_board b
+			<include refid="searchCond"/>
+			ORDER BY board_no DESC) a
+		WHERE rn > (#{page} - 1) * 5
+    <![CDATA[	
+	AND   rn <= #{page} * 5
+	]]>
+	</select>
+
+	<select id="selectCount" resultType="int"
+		parameterType="co.yedam.common.SearchVO">
+		SELECT COUNT(1)
+		FROM tbl_board
+		<include refid="searchCond"/>
+	</select>
+
+	<insert id="insertBoard" parameterType="co.yedam.vo.BoardVO">
+		INSERT INTO tbl_board
+		(board_no, title, content, writer, img)
+		VALUES (board_seq.NEXTVAL, #{title},
+		#{content}, #{writer}, #{img})
+	</insert>
+
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM tbl_board
+		WHERE board_no = #{bno}
+	</delete>
+
+	<update id="updateBoard" parameterType="co.yedam.vo.BoardVO">
+		UPDATE tbl_board
+		SET title
+		= #{title},
+		content = #{content}
+		WHERE board_no = #{boardNo}
+	</update>
+
+	<select id="getBoard" parameterType="int"
+		resultType="co.yedam.vo.BoardVO">
+		SELECT *
+		FROM tbl_board
+		WHERE board_no = #{bno}
+	</select>
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE tbl_board
+		SET view_cnt = view_cnt + 1
+		WHERE board_no = #{boardNo}
+	</update>
+</mapper>
