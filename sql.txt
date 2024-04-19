@@ -1,0 +1,99 @@
+CREATE TABLE member (
+    member_no NUMBER(10) NOT NULL,
+    member_id VARCHAR2(20) NOT NULL,
+    member_name VARCHAR2(20) NOT NULL,
+    member_pw VARCHAR2(20) NOT NULL,
+    email VARCHAR2(100) NULL,
+    phone VARCHAR2(100) NOT NULL,
+    point NUMBER(10) DEFAULT 0 NOT NULL,
+    dog_breed VARCHAR2(30) NULL,
+    dog_birth_date DATE NULL,
+    dog_name VARCHAR2(20) NULL,
+    CONSTRAINT PK_MEMBER PRIMARY KEY (member_no)
+);
+
+CREATE TABLE orders (
+    ord_no NUMBER(10) NOT NULL,
+    product_no NUMBER(20) NOT NULL,
+    member_no NUMBER(10) NOT NULL,
+    ord_tg VARCHAR2(100) NULL,
+    ord_ad VARCHAR2(100) NULL,
+    ord_day DATE NULL,
+    ord_status VARCHAR2(100) NULL,
+    ord_price NUMBER(10) NULL,
+    use_point NUMBER(10) NULL,
+    ord_total NUMBER(10) NULL,
+    phone VARCHAR2(100) NULL,
+    quantity NUMBER(10) NULL,
+    CONSTRAINT PK_ORDERS PRIMARY KEY (ord_no)
+);
+
+CREATE TABLE wishList (
+    member_no NUMBER(10) NOT NULL,
+    product_no NUMBER(20) NOT NULL
+);
+
+CREATE TABLE cart (
+    cart_no NUMBER(10) NOT NULL,
+    member_no NUMBER(10) NOT NULL,
+    product_no NUMBER(20) NOT NULL,
+    quantity NUMBER(5) DEFAULT 0 NOT NULL,
+    CONSTRAINT PK_CART PRIMARY KEY (cart_no)
+);
+
+CREATE TABLE search (
+    search_no VARCHAR2(255) NOT NULL,
+    keyword VARCHAR2(100) NULL,
+    search_date DATE NULL,
+    search_count NUMBER(10) NULL,
+    CONSTRAINT PK_SEARCH PRIMARY KEY (search_no)
+);
+
+CREATE TABLE review (
+    review_no NUMBER(10) NOT NULL,
+    member_no NUMBER(10) NOT NULL,
+    product_no NUMBER(20) NOT NULL,
+    contents VARCHAR2(100) NULL,
+    review_date DATE NULL,
+    review_photo VARCHAR2(100) NULL,
+    CONSTRAINT PK_REVIEW PRIMARY KEY (review_no)
+);
+
+CREATE TABLE dog (
+    dog_breed VARCHAR2(30) NOT NULL,
+    dog_size VARCHAR2(5) NOT NULL,
+    CONSTRAINT PK_DOG PRIMARY KEY (dog_breed)
+);
+
+CREATE TABLE product (
+    product_no NUMBER(20) NOT NULL,
+    product_name VARCHAR2(60) NOT NULL,
+    product_price NUMBER(10) NOT NULL,
+    description VARCHAR2(200) NULL,
+    left_cnt NUMBER(10) DEFAULT 0 NOT NULL,
+    category VARCHAR2(20) DEFAULT '기타' NOT NULL,
+    product_img VARCHAR2(100) NULL,
+    company VARCHAR2(20) NOT NULL,
+    launch_date DATE DEFAULT SYSDATE NOT NULL,
+    order_cnt NUMBER(10) DEFAULT 0 NOT NULL,
+    discount_pct NUMBER(4) DEFAULT 0 NOT NULL,
+    CONSTRAINT PK_PRODUCT PRIMARY KEY (product_no)
+);
+
+CREATE TABLE QnA (
+    qna_no NUMBER(10) NOT NULL,
+    member_no NUMBER(10) NOT NULL,
+    qna_title VARCHAR2(50) NOT NULL,
+    qna_date DATE DEFAULT SYSDATE NOT NULL,
+    qna_content VARCHAR2(500) NOT NULL,
+    CONSTRAINT PK_QNA PRIMARY KEY (qna_no)
+);
+
+CREATE TABLE board (
+    board_no NUMBER(10) NOT NULL,
+    member_no NUMBER(10) NOT NULL,
+    board_title VARCHAR2(50) NOT NULL,
+    board_date DATE DEFAULT SYSDATE NOT NULL,
+    board_content VARCHAR2(1000) NOT NULL,
+    CONSTRAINT PK_BOARD PRIMARY KEY (board_no)
+);
